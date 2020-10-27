@@ -4,6 +4,7 @@
   "description": "legelső",
   "main": "index.js",
   "dependencies": {
+    "readline-sync": "^1.4.10",
     "table": "^6.0.3"
   },
   "devDependencies": {},
