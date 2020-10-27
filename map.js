@@ -15,7 +15,7 @@ const fillMap = (src, player) => {
     for (let k = 0; k < src[i].length; k++) {
       src[i][k] = ' ';
       if (k === 0 || k === src[i].length - 1) {
-        src[i][k] = 'x';
+        src[i][k] = 'X';
       }
       if (playerX === i && playerY === k) {
         src[i][k] = '😷';
@@ -23,6 +23,33 @@ const fillMap = (src, player) => {
     }
   } return src;
 };
+
+const addEnemy = (arr, num) => {
+  for (let i = 0; i < num; i++) {
+    const y = Math.floor(Math.random() * arr[0].length - 2) + 1;
+    arr[0][y] = '*';
+  }
+  return arr;
+};
+
+const falling = (arr) => {
+  for (let i = 0; i < arr[arr.length - 2].length; i++) {
+    arr[arr.length - 2][i] = '';
+  }
+  for (let i = arr.length - 1; i > 0; i--) {
+    for (let j = 0; j < arr[i].length; j++) {
+      if (arr[i - 1][j] === '*') {
+        arr[i][j] = arr[i - 1][j];
+        arr[i - 1][j] = ' ';
+      }
+    }
+  }
+  return arr;
+};
+
+// const addPlayer = (src, player) => {
+
+// };
 
 const drawMap = (map) => {
   const output = table(map, {
@@ -42,5 +69,7 @@ const drawMap = (map) => {
 module.exports = {
   generateMap,
   fillMap,
-  drawMap
+  drawMap,
+  addEnemy,
+  falling
 };

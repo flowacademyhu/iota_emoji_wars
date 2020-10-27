@@ -1,3 +1,4 @@
+const { drawMap } = require('./map');
 const map = require('./map');
 
 // Pálya méretei
@@ -11,29 +12,39 @@ const player = {
   }
 };
 
-map.drawMap(map.fillMap(map.generateMap(height, width), player));
+const enemyNum = 5;
 
-const stdin = process.stdin;
-stdin.setRawMode(true);
-stdin.resume();
-stdin.setEncoding('utf8');
-stdin.on('data', (key) => {
-  console.clear();
+// const generatedMap = map.generateMap(height, width);
+// const filledMap = map.fillMap(generatedMap, player);
 
-  if (key === 'd') {
-    if (player.pos.y < width - 2) {
-      player.pos.y++;
+const main = () => {
+  const generatedMap = map.generateMap(height, width);
+  const stdin = process.stdin;
+  stdin.setRawMode(true);
+  stdin.resume();
+  stdin.setEncoding('utf8');
+  stdin.on('data', (key) => {
+    // console.clear();
+    const filledMap = map.fillMap(generatedMap, player);
+    if (key === 'd') {
+      if (player.pos.y < width - 2) {
+        player.pos.y++;
+      }
     }
-  }
-  if (key === 'a') {
-    if (player.pos.y > 1) {
-      player.pos.y--;
+    if (key === 'a') {
+      if (player.pos.y > 1) {
+        player.pos.y--;
+      }
     }
-  }
 
-  if (key === 'q') {
-    process.exit(0);
-  }
-  console.clear();
-  map.drawMap(map.fillMap(map.generateMap(height, width), player));
-});
+    if (key === 'q') {
+      process.exit(0);
+    }
+    // console.clear();
+    const addedEnemy = map.addEnemy(filledMap, enemyNum);
+    const fallEnemy = map.falling(addedEnemy);
+    drawMap(fallEnemy);
+  });
+};
+
+main();
