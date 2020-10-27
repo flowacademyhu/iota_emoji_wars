@@ -8,12 +8,17 @@ const generateMap = (height, width) => {
   return arr;
 };
 
-const fillMap = (src) => {
+const fillMap = (src, player) => {
+  const playerX = player.pos.x;
+  const playerY = player.pos.y;
   for (let i = 0; i < src.length; i++) {
     for (let k = 0; k < src[i].length; k++) {
       src[i][k] = ' ';
       if (k === 0 || k === src[i].length - 1) {
-        src[i][k] = 'X';
+        src[i][k] = 'x';
+      }
+      if (playerX === i && playerY === k) {
+        src[i][k] = '😷';
       }
     }
   } return src;
