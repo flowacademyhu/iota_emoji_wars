@@ -25,9 +25,21 @@ const generateEnemy = (map, enemyArr, n) => {
   }
 };
 
-const drawMap = (height, width) => {
-  const map = fillMap(generateMap(height, width));
-  const output = table(map, {
+const drawMap = (height, width, player, enemyArr) => {
+  const terkep = fillMap(generateMap(height, width));
+  for (let sor = 0; sor < terkep.length; sor++) {
+    for (let oszlop = 0; oszlop < terkep[sor].length; oszlop++) {
+      if (player.pos.x === sor && player.pos.y === oszlop) {
+        terkep[sor][oszlop] = 'P';
+      }
+      for (let i = 0; i < enemyArr.length; i++) {
+        if (enemyArr[i].pos.x === sor && enemyArr[i].pos.y === oszlop) {
+          terkep[sor][oszlop] = 'E';
+        }
+      }
+    }
+  }
+  const output = table(terkep, {
     border: getBorderCharacters('void'),
     columnDefault: {
       paddingLeft: 0,

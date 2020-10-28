@@ -1,4 +1,4 @@
-const { drawMap } = require('./map');
+const { drawMap, generateEnemy } = require('./map');
 const map = require('./map');
 
 // Pálya méretei
@@ -19,7 +19,15 @@ const main = () => {
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.resume();
-  drawMap(height, width);
+  setInterval(() => {
+    console.clear();
+    drawMap(height, width, player, enemy);
+  }, 200);
+  // enemy kezelés
+  setInterval((=>{
+    map.generateEnemy()
+  }))
+
   stdin.setEncoding('utf8');
   stdin.on('data', (key) => {
     if (key === 'd') {
@@ -36,6 +44,7 @@ const main = () => {
     if (key === 'q') {
       process.exit(0);
     }
+    console.log('x: ', player.pos.x, 'y: ', player.pos.y);
   });
 };
 
