@@ -3,7 +3,7 @@ const map = require('./map');
 
 // Pálya méretei
 const height = 20;
-const width = 49;
+const width = 50;
 
 const player = {
   pos: {
@@ -11,21 +11,17 @@ const player = {
     y: Math.floor(width / 2)
   }
 };
+const enemy = [];
 
 const enemyNum = 5;
 
-// const generatedMap = map.generateMap(height, width);
-// const filledMap = map.fillMap(generatedMap, player);
-
 const main = () => {
-  const generatedMap = map.generateMap(height, width);
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.resume();
+  drawMap(height, width);
   stdin.setEncoding('utf8');
   stdin.on('data', (key) => {
-    // console.clear();
-    const filledMap = map.fillMap(generatedMap, player);
     if (key === 'd') {
       if (player.pos.y < width - 2) {
         player.pos.y++;
@@ -40,10 +36,6 @@ const main = () => {
     if (key === 'q') {
       process.exit(0);
     }
-    // console.clear();
-    const addedEnemy = map.addEnemy(filledMap, enemyNum);
-    const fallEnemy = map.falling(addedEnemy);
-    drawMap(fallEnemy);
   });
 };
 
