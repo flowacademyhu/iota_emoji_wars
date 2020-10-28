@@ -20,13 +20,15 @@ const main = () => {
   stdin.resume();
   // enemy generalás
   setInterval(() => {
+    map.stepEnemy(enemy);
     map.generateEnemy(width, enemy, enemyNum);
-  }, 100);
-  console.log(enemy);
-  // setInterval(() => {
-  //   console.clear();
-  //   map.drawMap(height, width, player, enemy);
-  // }, 200);
+  }, 1000);
+
+  // térkép generálás
+  setInterval(() => {
+    console.clear();
+    map.drawMap(height, width, player, enemy);
+  }, 200);
 
   stdin.setEncoding('utf8');
   stdin.on('data', (key) => {
@@ -44,7 +46,6 @@ const main = () => {
     if (key === 'q') {
       process.exit(0);
     }
-    console.log('x: ', player.pos.x, 'y: ', player.pos.y);
   });
 };
 
