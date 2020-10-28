@@ -1,0 +1,25 @@
+{
+  "name": "emoji_wars",
+  "version": "0.0.1",
+  "description": "legelső",
+  "main": "index.js",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "readline-sync": "^1.4.10",
+    "table": "^6.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flowacademyhu/iota_emoji_wars.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flowacademyhu/iota_emoji_wars/issues"
+  },
+  "homepage": "https://github.com/flowacademyhu/iota_emoji_wars#readme"
+}
