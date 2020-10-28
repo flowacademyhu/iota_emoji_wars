@@ -25,6 +25,12 @@ const generateEnemy = (width, enemyArr, n) => {
   }
 };
 
+const stepEnemy = (enemyArr) => {
+  for (let i = 0; i < enemyArr.length; i++) {
+    enemyArr[i].y++;
+  }
+};
+
 const drawMap = (height, width, player, enemyArr) => {
   const terkep = fillMap(generateMap(height, width));
   for (let sor = 0; sor < terkep.length; sor++) {
@@ -57,5 +63,6 @@ module.exports = {
   generateMap,
   fillMap,
   drawMap,
-  generateEnemy
+  generateEnemy,
+  stepEnemy
 };

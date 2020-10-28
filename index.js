@@ -20,6 +20,7 @@ const main = () => {
   stdin.resume();
   // enemy generalás
   setInterval(() => {
+    map.stepEnemy(enemy);
     map.generateEnemy(width, enemy, enemyNum);
   }, 1000);
 
