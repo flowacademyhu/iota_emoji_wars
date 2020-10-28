@@ -25,6 +25,19 @@ const generateEnemy = (width, enemyArr, n) => {
   }
 };
 
+const generateAmmo = (player) => {
+  const x = player.pos.x;
+  const y = player.pos.y - 1;
+  const playerAmmo = player.ammo;
+  playerAmmo.push({ x: x, y: y });
+};
+
+const stepAmmo = (playerAmmo) => {
+  for (let i = 0; i < playerAmmo.length; i++) {
+    playerAmmo[i].y--;
+  }
+};
+
 const stepEnemy = (enemyArr) => {
   for (let i = 0; i < enemyArr.length; i++) {
     enemyArr[i].y++;
@@ -35,12 +48,17 @@ const drawMap = (height, width, player, enemyArr) => {
   const terkep = fillMap(generateMap(height, width));
   for (let sor = 0; sor < terkep.length; sor++) {
     for (let oszlop = 0; oszlop < terkep[sor].length; oszlop++) {
-      if (player.pos.x === sor && player.pos.y === oszlop) {
+      if (player.pos.x === oszlop && player.pos.y === sor) {
         terkep[sor][oszlop] = 'P';
       }
       for (let i = 0; i < enemyArr.length; i++) {
         if (enemyArr[i].x === oszlop && enemyArr[i].y === sor) {
           terkep[sor][oszlop] = 'E';
+        }
+      }
+      for (let i = 0; i < player.ammo.length; i++) {
+        if (player.ammo[i].x === oszlop && player.ammo[i].y === sor) {
+          terkep[sor][oszlop] = 'I';
         }
       }
     }
@@ -64,5 +82,7 @@ module.exports = {
   fillMap,
   drawMap,
   generateEnemy,
-  stepEnemy
+  stepEnemy,
+  generateAmmo,
+  stepAmmo
 };

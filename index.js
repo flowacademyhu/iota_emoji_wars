@@ -6,9 +6,10 @@ const width = 50;
 
 const player = {
   pos: {
-    x: height - 1,
-    y: Math.floor(width / 2)
-  }
+    x: Math.floor(width / 2),
+    y: height - 1
+  },
+  ammo: []
 };
 const enemy = [];
 
@@ -20,6 +21,8 @@ const main = () => {
   stdin.resume();
   // enemy generalás
   setInterval(() => {
+    map.generateAmmo(player);
+    map.stepAmmo(player.ammo);
     map.stepEnemy(enemy);
     map.generateEnemy(width, enemy, enemyNum);
   }, 1000);
@@ -33,13 +36,13 @@ const main = () => {
   stdin.setEncoding('utf8');
   stdin.on('data', (key) => {
     if (key === 'd') {
-      if (player.pos.y < width - 2) {
-        player.pos.y++;
+      if (player.pos.x < width - 2) {
+        player.pos.x++;
       }
     }
     if (key === 'a') {
-      if (player.pos.y > 1) {
-        player.pos.y--;
+      if (player.pos.x > 1) {
+        player.pos.x--;
       }
     }
 
