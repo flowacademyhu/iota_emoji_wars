@@ -21,7 +21,7 @@ const fillMap = (src) => {
 
 const generateEnemy = (width, enemyArr, n) => {
   for (let i = 0; i < n; i++) {
-    enemyArr.push({ x: Math.floor(Math.random) * width - 2 + 1, y: 0 });
+    enemyArr.push({ x: Math.floor(Math.random() * (width - 2) + 1), y: 0 });
   }
 };
 
@@ -33,7 +33,7 @@ const drawMap = (height, width, player, enemyArr) => {
         terkep[sor][oszlop] = 'P';
       }
       for (let i = 0; i < enemyArr.length; i++) {
-        if (enemyArr[i].pos.x === sor && enemyArr[i].pos.y === oszlop) {
+        if (enemyArr[i].x === oszlop && enemyArr[i].y === sor) {
           terkep[sor][oszlop] = 'E';
         }
       }
