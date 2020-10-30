@@ -12,6 +12,14 @@ const generateEnemy = (width, enemy, n) => {
   }
 };
 
+const finalRow = (enemy, height) => {
+  for (let i=0; i < enemy.lenght; i++) {
+    if (enemy[i].x === height-2){
+      process.exit()
+    }
+  }
+};
+
 const deathEnemy = (enemy, player) => {
   const arr = [];
   const arr2 = [];
@@ -46,5 +54,6 @@ const deathEnemy = (enemy, player) => {
 module.exports = {
   stepEnemy,
   generateEnemy,
-  deathEnemy
+  deathEnemy,
+  finalRow
 };
