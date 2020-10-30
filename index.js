@@ -1,4 +1,7 @@
 const map = require('./map');
+const move = require('./move');
+const enemyModule = require('./enemy');
+const ammoModule = require('./ammo');
 
 // Pálya méretei
 const height = 20;
@@ -6,11 +9,12 @@ const width = 50;
 
 const player = {
   pos: {
-    x: height - 1,
-    y: Math.floor(width / 2)
-  }
+    x: Math.floor(width / 2),
+    y: height - 1
+  },
+  ammo: []
 };
-const enemy = [];
+let enemy = [];
 
 const enemyNum = 5;
 
@@ -20,8 +24,13 @@ const main = () => {
   stdin.resume();
   // enemy generalás
   setInterval(() => {
-    map.stepEnemy(enemy);
-    map.generateEnemy(width, enemy, enemyNum);
+    ammoModule.generatePlayerAmmo(player);
+    ammoModule.stepPlayerAmmo(player);
+    const asd = enemyModule.deathEnemy(enemy, player);
+    player.ammo = asd.player;
+    enemy = asd.enemy;
+    enemyModule.stepEnemy(enemy, height);
+    enemyModule.generateEnemy(width, enemy, enemyNum);
   }, 1000);
 
   // térkép generálás
@@ -33,13 +42,13 @@ const main = () => {
   stdin.setEncoding('utf8');
   stdin.on('data', (key) => {
     if (key === 'd') {
-      if (player.pos.y < width - 2) {
-        player.pos.y++;
+      if (player.pos.x < width - 2) {
+        move.moveRight(player.pos, width);
       }
     }
     if (key === 'a') {
-      if (player.pos.y > 1) {
-        player.pos.y--;
+      if (player.pos.x > 1) {
+        move.moveLeft(player.pos);
       }
     }
 
