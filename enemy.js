@@ -12,39 +12,29 @@ const generateEnemy = (width, enemy, n) => {
   }
 };
 
-const deathEnemy = (enemy, player) => {
+const compareCordinates = (objOne, objTwo) => {
   const arr = [];
-  const arr2 = [];
-  for (let i = 0; i < enemy.length; i++) {
+  let score = 0;
+  for (let i = 0; i < objOne.length; i++) {
     let hit = false;
-    for (let k = 0; k < player.ammo.length; k++) {
-      if (enemy[i].x === player.ammo[k].x && enemy[i].y === player.ammo[k].y) {
+    for (let k = 0; k < objTwo.length; k++) {
+      if (objOne[i].x === objTwo[k].x && objOne[i].y === objTwo[k].y) {
         hit = true;
+        score++;
       }
     }
     if (!hit) {
-      arr.push(enemy[i]);
-    }
-  }
-  for (let i = 0; i < player.ammo.length; i++) {
-    let hit = false;
-    for (let k = 0; k < enemy.length; k++) {
-      if (enemy[k].x === player.ammo[i].x && enemy[k].y === player.ammo[i].y) {
-        hit = true;
-      }
-    }
-    if (!hit) {
-      arr2.push(player.ammo[i]);
+      arr.push(objOne[i]);
     }
   }
   return {
-    enemy: arr,
-    player: arr2
+    arr,
+    score
   };
 };
 
 module.exports = {
   stepEnemy,
   generateEnemy,
-  deathEnemy
+  compareCordinates
 };
