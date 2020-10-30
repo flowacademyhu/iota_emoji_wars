@@ -13,9 +13,9 @@ const generateEnemy = (width, enemy, n) => {
 };
 
 const finalRow = (enemy, height) => {
-  for (let i=0; i < enemy.lenght; i++) {
-    if (enemy[i].x === height-2){
-      process.exit()
+  for (let i = 0; i < enemy.length; i++) {
+    if (enemy[i].y >= height - 1) {
+      process.exit(0);
     }
   }
 };
