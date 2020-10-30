@@ -31,12 +31,13 @@ const main = () => {
     enemy = asd.enemy;
     enemyModule.stepEnemy(enemy, height);
     enemyModule.generateEnemy(width, enemy, enemyNum);
-  }, 1000);
-
+  }, 300);
+  
   // térkép generálás
   setInterval(() => {
     console.clear();
     map.drawMap(height, width, player, enemy);
+    enemyModule.finalRow(enemy, height);
   }, 200);
 
   stdin.setEncoding('utf8');
