@@ -28,6 +28,7 @@ const main = () => {
     ammoModule.generatePlayerAmmo(player);
     enemyModule.stepEnemy(enemy, height);
     enemyModule.generateEnemy(width, enemy, enemyNum);
+
   }, 1000);
   setInterval(() => {
     // léptetés
@@ -45,11 +46,17 @@ const main = () => {
     enemyNum++;
   }, 10000);
 
+
+  }, 300);
+  
+
   // térkép generálás
   setInterval(() => {
     console.clear();
     map.drawMap(height, width, player, enemy);
+
     console.log('A játék aktuális állása:', player.score);
+    enemyModule.finalRow(enemy, height);
   }, 200);
 
   stdin.setEncoding('utf8');
