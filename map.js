@@ -20,6 +20,9 @@ const fillMap = (src) => {
 };
 
 const drawMap = (height, width, player, enemy) => {
+  console.clear();
+  console.log('======');
+  console.clear();
   const gameMap = fillMap(generateMap(height, width));
   for (let row = 0; row < gameMap.length; row++) {
     for (let column = 0; column < gameMap[row].length; column++) {

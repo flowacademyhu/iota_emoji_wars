@@ -44,17 +44,15 @@ const main = () => {
 
   setInterval(() => {
     enemyNum++;
-  }, 10000);
+  }, 3000);
 
 
-  }, 300);
   
 
   // térkép generálás
   setInterval(() => {
     console.clear();
     map.drawMap(height, width, player, enemy);
-
     console.log('A játék aktuális állása:', player.score);
     enemyModule.finalRow(enemy, height);
   }, 200);

@@ -8,11 +8,10 @@ const stepEnemy = (enemy, height) => {
 
 const generateEnemy = (width, enemy, n) => {
   for (let i = 0; i < n; i++) {
-    enemy.push({ x: Math.floor(Math.random() * (width - 2) + 1), y: 0 });
+ enemy.push({ x: Math.floor(Math.random() * (width - 2) + 1), y: 0 });
   }
 };
 
-const compareCordinates = (objOne, objTwo) => {
 
 const finalRow = (enemy, height) => {
   for (let i = 0; i < enemy.length; i++) {
@@ -22,7 +21,8 @@ const finalRow = (enemy, height) => {
   }
 };
 
-const deathEnemy = (enemy, player) => {
+//const deathEnemy = (enemy, player) => {
+  const compareCordinates = (objOne, objTwo) => {
 
   const arr = [];
   let score = 0;
@@ -47,10 +47,8 @@ const deathEnemy = (enemy, player) => {
 module.exports = {
   stepEnemy,
   generateEnemy,
-
-  compareCordinates
-
-  deathEnemy,
+  compareCordinates,
+  //deathEnemy,
   finalRow
 
 };

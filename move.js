@@ -11,7 +11,8 @@ const moveRight = (obj, width) => {
 };
 
 const moveUp = (obj) => {
-  if (obj.y > 0) {
+  // itt azért minusz egy,h a lövedék elhagyja a pályát felül
+  if (obj.y > -1) {
     obj.y--;
   }
 };
