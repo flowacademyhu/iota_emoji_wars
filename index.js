@@ -12,11 +12,12 @@ const player = {
     x: Math.floor(width / 2),
     y: height - 1
   },
-  ammo: []
+  ammo: [],
+  score: 0
 };
 let enemy = [];
 
-const enemyNum = 5;
+let enemyNum = 1;
 
 const main = () => {
   const stdin = process.stdin;
@@ -25,18 +26,36 @@ const main = () => {
   // enemy generalás
   setInterval(() => {
     ammoModule.generatePlayerAmmo(player);
-    ammoModule.stepPlayerAmmo(player);
-    const asd = enemyModule.deathEnemy(enemy, player);
-    player.ammo = asd.player;
-    enemy = asd.enemy;
     enemyModule.stepEnemy(enemy, height);
     enemyModule.generateEnemy(width, enemy, enemyNum);
+
+  }, 1000);
+  setInterval(() => {
+    // léptetés
+    ammoModule.stepPlayerAmmo(player);
+    // összehasonlítás
+    const newPlayer = enemyModule.compareCordinates(player.ammo, enemy);
+    const newEnemy = enemyModule.compareCordinates(enemy, player.ammo).arr;
+    // adatok átadása
+    enemy = newEnemy;
+    player.ammo = newPlayer.arr;
+    player.score += newPlayer.score;
+  }, 100);
+
+  setInterval(() => {
+    enemyNum++;
+  }, 10000);
+
+
   }, 300);
   
+
   // térkép generálás
   setInterval(() => {
     console.clear();
     map.drawMap(height, width, player, enemy);
+
+    console.log('A játék aktuális állása:', player.score);
     enemyModule.finalRow(enemy, height);
   }, 200);
 
