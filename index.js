@@ -87,5 +87,3 @@ const main = () => {
 };
 
 player.name = readlineSync.question('Mi a neved?');
-
-main();
