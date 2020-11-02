@@ -3,17 +3,31 @@ term.cyan('EMOJI WARS \n');
 const readlineSync = require('readline-sync');
 
 var items = [
-  'START',
+  'GAME MODES',
   'Options',
   'Exit'
+];
+var items2 = [
+  'TIME MODE',
+  'SURVIVAL MODE'
 ];
 const name = readlineSync.question('Mi a neved?');
 console.log('Hello', name);
 
 term.singleColumnMenu(items, function (error, response) {
   term('\n').eraseLineAfter.green;
-  if (response.selectedText === 'START') {
-    require('./index');
+  if (response.selectedText === 'GAME MODES') {
+    term.singleColumnMenu(items2, function (error, response) {
+      term('\n').eraseLineAfter.green;
+      if (response.selectedText === 'TIME MODE') {
+        term('\n').eraseLineAfter.green;
+        require('./index');
+      }
+      if (response.selectedText === 'SURVIVAL MODE') {
+        term('\n').eraseLineAfter.green;
+        require('./survival');
+      }
+    });
   } else if (response.selectedText === 'Options') {
     console.log('NANANANAN');
     process.exit(0);

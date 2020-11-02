@@ -4,11 +4,10 @@ const enemyModule = require('./enemy');
 const ammoModule = require('./ammo');
 const gameEnd = require('./gameEnd');
 const menu = require('./menu');
+
 // Pálya méretei
 const height = 20;
 const width = 10;
-// max játékidő
-let playTIme = 30;
 
 const player = {
   pos: {
@@ -22,38 +21,40 @@ const player = {
 let enemy = [];
 
 let enemyNum = 1;
+let timeGenerateAndStepEnemy = 1000;
 
 const main = () => {
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.resume();
-  // enemy generalás
+  // játékmenet nehezítés
+  setInterval(() => {
+    timeGenerateAndStepEnemy -= 100;
+  }, 3000);
+  // generate enemy
   setInterval(() => {
     enemyModule.stepEnemy(enemy, height);
     enemyModule.generateEnemy(width, enemy, enemyNum);
-    playTIme--;
-    console.log(playTIme);
-  }, 1000);
+  }, timeGenerateAndStepEnemy);
+
   setInterval(() => {
-    ammoModule.generatePlayerAmmo(player);
-  }, 500);
-  setInterval(() => {
-    // léptetés
+    // játékos lövedékének léptetése
     ammoModule.stepPlayerAmmo(player);
-    // összehasonlítás
+    // játékos lövedékének és az enemy pozíciójának összehasonlítása
     const newPlayer = enemyModule.compareCordinates(player.ammo, enemy);
     const newEnemy = enemyModule.compareCordinates(enemy, player.ammo).arr;
-    // adatok átadása
+    // adatátadás
     enemy = newEnemy;
     player.ammo = newPlayer.arr;
     player.score += newPlayer.score;
-    if (player.score === 150 || enemyModule.finalRow(enemy, height) || playTIme === 0) {
+    if (enemyModule.finalRow(enemy, height)) {
       console.clear();
       gameEnd.scoreboard(player.name, player.score);
       process.exit(0);
     }
   }, 100);
 
+  // enemy számának növelése
   setInterval(() => {
     enemyNum++;
   }, 3000);
@@ -63,10 +64,10 @@ const main = () => {
     console.clear();
     map.drawMap(height, width, player, enemy);
     console.log('Pontszám:', player.score);
-    console.log('Megmaradó játékidő: ', playTIme, ' másodperc');
     console.log('Játékos:', player.name);
   }, 200);
 
+  // játékos irányítása
   stdin.setEncoding('utf8');
   stdin.on('data', (key) => {
     if (key === 'd') {
@@ -79,6 +80,9 @@ const main = () => {
         move.moveLeft(player.pos);
       }
     }
+    if (key === 's') {
+      ammoModule.generatePlayerAmmo(player); // lövés az s gombbal
+    }
 
     if (key === 'q') {
       process.exit(0);
@@ -86,6 +90,7 @@ const main = () => {
   });
 };
 
+// játékos nevének importálása
 player.name = menu.name;
 
 module.exports = main();
