@@ -11,7 +11,7 @@ const generateMap = (height, width) => {
 const fillMap = (src) => {
   for (let row = 0; row < src.length; row++) {
     for (let column = 0; column < src[row].length; column++) {
-      src[row][column] = ' ';
+      src[row][column] = '  ';
       if (column === 0 || column === src[row].length - 1) {
         src[row][column] = 'X';
       }
@@ -27,16 +27,16 @@ const drawMap = (height, width, player, enemy) => {
   for (let row = 0; row < gameMap.length; row++) {
     for (let column = 0; column < gameMap[row].length; column++) {
       if (player.pos.x === column && player.pos.y === row) {
-        gameMap[row][column] = 'P';
+        gameMap[row][column] = '📤';
       }
       for (let i = 0; i < enemy.length; i++) {
         if (enemy[i].x === column && enemy[i].y === row) {
-          gameMap[row][column] = 'E';
+          gameMap[row][column] = '👾';
         }
       }
       for (let i = 0; i < player.ammo.length; i++) {
         if (player.ammo[i].x === column && player.ammo[i].y === row) {
-          gameMap[row][column] = 'I';
+          gameMap[row][column] = '🔺';
         }
       }
     }

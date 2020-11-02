@@ -5,7 +5,7 @@ const ammoModule = require('./ammo');
 
 // Pálya méretei
 const height = 20;
-const width = 50;
+const width = 10;
 
 const player = {
   pos: {
@@ -25,11 +25,13 @@ const main = () => {
   stdin.resume();
   // enemy generalás
   setInterval(() => {
-    ammoModule.generatePlayerAmmo(player);
+    // ammoModule.generatePlayerAmmo(player);
     enemyModule.stepEnemy(enemy, height);
     enemyModule.generateEnemy(width, enemy, enemyNum);
-
   }, 1000);
+  setInterval(() => {
+    ammoModule.generatePlayerAmmo(player);
+  }, 500);
   setInterval(() => {
     // léptetés
     ammoModule.stepPlayerAmmo(player);
@@ -44,16 +46,13 @@ const main = () => {
 
   setInterval(() => {
     enemyNum++;
-  }, 3000);
-
-
-  
+  }, 30000);
 
   // térkép generálás
   setInterval(() => {
     console.clear();
     map.drawMap(height, width, player, enemy);
-    console.log('A játék aktuális állása:', player.score);
+    console.log('Pontszám:', player.score);
     enemyModule.finalRow(enemy, height);
   }, 200);
 

@@ -2,7 +2,7 @@ const move = require('./move');
 
 const generatePlayerAmmo = (player) => {
   const x = player.pos.x;
-  const y = player.pos.y;
+  const y = player.pos.y - 1;
   const playerAmmo = player.ammo;
   playerAmmo.push({ x: x, y: y });
 };
