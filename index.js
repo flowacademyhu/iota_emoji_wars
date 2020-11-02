@@ -75,4 +75,4 @@ const main = () => {
   });
 };
 
-main();
+module.exports = main();
