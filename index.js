@@ -2,7 +2,8 @@ const map = require('./map');
 const move = require('./move');
 const enemyModule = require('./enemy');
 const ammoModule = require('./ammo');
-
+const gameEnd = require('./gameEnd');
+const readlineSync = require('readline-sync');
 // Pálya méretei
 const height = 20;
 const width = 10;
@@ -13,7 +14,8 @@ const player = {
     y: height - 1
   },
   ammo: [],
-  score: 0
+  score: 0,
+  name: ''
 };
 let enemy = [];
 
@@ -42,6 +44,11 @@ const main = () => {
     enemy = newEnemy;
     player.ammo = newPlayer.arr;
     player.score += newPlayer.score;
+    if (player.score === 1 || enemyModule.finalRow(enemy, height)) {
+      console.clear();
+      gameEnd.scoreboard(player.name, player.score);
+      process.exit(0);
+    }
   }, 100);
 
   setInterval(() => {
@@ -53,8 +60,12 @@ const main = () => {
     console.clear();
     map.drawMap(height, width, player, enemy);
     console.log('Pontszám:', player.score);
-    enemyModule.finalRow(enemy, height);
   }, 200);
+
+  if (player.score > 10) {
+    console.clear();
+    console.log('Game over az Ön pontszáma: ', player.score);
+  }
 
   stdin.setEncoding('utf8');
   stdin.on('data', (key) => {
@@ -75,4 +86,8 @@ const main = () => {
   });
 };
 
+player.name = readlineSync.question('Mi a neved?');
+
 module.exports = main();
+
+
