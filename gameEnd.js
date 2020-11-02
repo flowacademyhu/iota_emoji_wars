@@ -8,8 +8,6 @@ const writeFile = (obj) => {
 };
 
 const writeOutScoreboard = (dataTable, playerScore, playerName) => {
-  const d = new Date();
-  console.log(d.getDate());
   const dataArr = [];
 
   // az objekt tömbberendezése módosításhoz
