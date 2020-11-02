@@ -3,10 +3,12 @@ const move = require('./move');
 const enemyModule = require('./enemy');
 const ammoModule = require('./ammo');
 const gameEnd = require('./gameEnd');
+const menu = require('./menu');
 const readlineSync = require('readline-sync');
 // Pálya méretei
 const height = 20;
 const width = 10;
+const maxPlayTime = 10;
 
 const player = {
   pos: {
@@ -20,6 +22,7 @@ const player = {
 let enemy = [];
 
 let enemyNum = 1;
+let playTIme = 0;
 
 const main = () => {
   const stdin = process.stdin;
@@ -30,6 +33,8 @@ const main = () => {
     // ammoModule.generatePlayerAmmo(player);
     enemyModule.stepEnemy(enemy, height);
     enemyModule.generateEnemy(width, enemy, enemyNum);
+    playTIme++;
+    console.log(playTIme);
   }, 1000);
   setInterval(() => {
     ammoModule.generatePlayerAmmo(player);
@@ -44,7 +49,7 @@ const main = () => {
     enemy = newEnemy;
     player.ammo = newPlayer.arr;
     player.score += newPlayer.score;
-    if (player.score === 1 || enemyModule.finalRow(enemy, height)) {
+    if (player.score === 150 || enemyModule.finalRow(enemy, height) || playTIme === maxPlayTime) {
       console.clear();
       gameEnd.scoreboard(player.name, player.score);
       process.exit(0);
@@ -60,6 +65,8 @@ const main = () => {
     console.clear();
     map.drawMap(height, width, player, enemy);
     console.log('Pontszám:', player.score);
+    console.log(playTIme);
+    console.log('Játékos:', player.name);
   }, 200);
 
   if (player.score > 10) {
@@ -86,8 +93,7 @@ const main = () => {
   });
 };
 
-player.name = readlineSync.question('Mi a neved?');
+player.name = menu.name;
+console.log('átjött a', player.name);
 
 module.exports = main();
-
-

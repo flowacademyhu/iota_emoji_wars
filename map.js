@@ -45,7 +45,8 @@ const drawMap = (height, width, player, enemy) => {
     border: getBorderCharacters('void'),
     columnDefault: {
       paddingLeft: 0,
-      paddingRight: 0
+      paddingRight: 0,
+      width: 10
     },
     drawHorizontalLine: () => {
       return false;

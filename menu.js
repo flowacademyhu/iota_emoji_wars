@@ -1,11 +1,14 @@
 var term = require('terminal-kit').terminal;
 term.cyan('EMOJI WARS \n');
+const readlineSync = require('readline-sync');
 
 var items = [
   'START',
   'Options',
   'Exit'
 ];
+const name = readlineSync.question('Mi a neved?');
+console.log('Hello', name);
 
 term.singleColumnMenu(items, function (error, response) {
   term('\n').eraseLineAfter.green;
@@ -19,3 +22,7 @@ term.singleColumnMenu(items, function (error, response) {
     process.exit(0);
   }
 });
+
+module.exports = {
+  name
+};
