@@ -1,4 +1,5 @@
 const { table, getBorderCharacters } = require('table');
+const chalk = require('chalk');
 
 const generateMap = (height, width) => {
   const arr = new Array(height);
@@ -11,9 +12,9 @@ const generateMap = (height, width) => {
 const fillMap = (src) => {
   for (let row = 0; row < src.length; row++) {
     for (let column = 0; column < src[row].length; column++) {
-      src[row][column] = '  ';
+      src[row][column] = chalk.green('  ');
       if (column === 0 || column === src[row].length - 1) {
-        src[row][column] = 'X';
+        src[row][column] = chalk.bgBlue('X');
       }
     }
   } return src;

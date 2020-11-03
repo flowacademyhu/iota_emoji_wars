@@ -6,6 +6,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "readline-sync": "^1.4.10",
+    "sound-play": "^1.0.5",
     "table": "^6.0.3",
     "terminal-kit": "^1.44.0"
   },

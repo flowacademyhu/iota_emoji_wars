@@ -9,6 +9,7 @@ const height = 20;
 const width = 10;
 // max játékidő
 let playTIme = 30;
+const gameMode = 'time';
 
 const player = {
   pos: {
@@ -47,9 +48,9 @@ const main = () => {
     enemy = newEnemy;
     player.ammo = newPlayer.arr;
     player.score += newPlayer.score;
-    if (player.score === 150 || enemyModule.finalRow(enemy, height) || playTIme === 0) {
+    if (enemyModule.finalRow(enemy, height) || playTIme === 0) {
       console.clear();
-      gameEnd.scoreboard(player.name, player.score);
+      gameEnd.scoreboard(player.name, player.score, gameMode);
       process.exit(0);
     }
   }, 100);
@@ -62,9 +63,7 @@ const main = () => {
   setInterval(() => {
     console.clear();
     map.drawMap(height, width, player, enemy);
-    console.log('Pontszám:', player.score);
-    console.log('Megmaradó játékidő: ', playTIme, ' másodperc');
-    console.log('Játékos:', player.name);
+    gameEnd.drawHead(player.name, player.score, gameMode, playTIme, player.lifeNum);
   }, 200);
 
   stdin.setEncoding('utf8');
@@ -81,6 +80,8 @@ const main = () => {
     }
 
     if (key === 'q') {
+      console.clear();
+      gameEnd.scoreboard(player.name, player.score, gameMode);
       process.exit(0);
     }
   });

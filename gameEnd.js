@@ -1,13 +1,20 @@
 const fs = require('fs');
 const { table, getBorderCharacters } = require('table');
-const scoreFile = require('./scoreboard.json');
+const timeScoreFile = require('./timeScoreboard.json');
+const scoreSurvivalFile = require('./survivalScoreboard.json');
 
-const writeFile = (obj) => {
+const writeFile = (obj, gameMode) => {
+  let jsonFile;
   const data = JSON.stringify(obj);
-  fs.writeFileSync('scoreboard.json', data);
+  if (gameMode === 'time') {
+    jsonFile = 'timeScoreboard.json';
+  } else if (gameMode === 'survival') {
+    jsonFile = 'survivalScoreboard.json';
+  }
+  fs.writeFileSync(jsonFile, data);
 };
 
-const writeOutScoreboard = (dataTable, playerScore, playerName) => {
+const writeOutScoreboard = (dataTable, playerScore, playerName, gameMode) => {
   const dataArr = [];
 
   // az objekt tömbberendezése módosításhoz
@@ -27,10 +34,11 @@ const writeOutScoreboard = (dataTable, playerScore, playerName) => {
       }
     }
   }
-
   const top10 = [['Név', 'Eredmény', 'Dátum']];
   for (let i = 1; i < 11; i++) {
-    top10[i] = dataArr[i - 1];
+    if (dataArr[i - 1] !== undefined) {
+      top10[i] = dataArr[i - 1];
+    }
   }
 
   const config = {
@@ -52,7 +60,7 @@ const writeOutScoreboard = (dataTable, playerScore, playerName) => {
     },
     singleLine: true
   }));
-  const title = [['HIGHSCORES']];
+  const title = [['HIGHSCORES'], [gameMode]];
   const output = table(top10, config);
   console.log(table(title, {
     columns: {
@@ -66,19 +74,61 @@ const writeOutScoreboard = (dataTable, playerScore, playerName) => {
   console.log(output);
 };
 
-const scoreboard = (playerName, playerScore) => {
-  const exportData = scoreFile;
+const scoreboard = (playerName, playerScore, gameMode) => {
+  let jsonFile;
+  if (gameMode === 'time') {
+    jsonFile = timeScoreFile;
+  } else if (gameMode === 'survival') {
+    jsonFile = scoreSurvivalFile;
+  }
+  const exportData = jsonFile;
   const d = new Date();
   let datum = '';
   datum += d.getFullYear();
   datum += d.getMonth();
   datum += d.getDate();
-  scoreFile.push({ name: playerName, score: playerScore, datum: datum });
-  writeFile(exportData);
+  jsonFile.push({ name: playerName, score: playerScore, datum: datum });
+  writeFile(exportData, gameMode);
   writeOutScoreboard(exportData, playerScore, playerName);
+};
+
+const drawHead = (playerName, playerScore, gameMode, time, life) => {
+  const arr = [];
+  arr[0] = [];
+  arr[1] = [];
+  arr[0][0] = 'Játékos: ';
+  arr[1][0] = playerName;
+  arr[0][1] = 'Pontszám';
+  arr[1][1] = playerScore;
+  arr[0][2] = 'Játék mód: ';
+  if (gameMode === 'time') {
+    arr[1][2] = 'TIME MODE';
+    arr[0][3] = 'Hátralévő idő: ';
+    arr[1][3] = time;
+  } else if (gameMode === 'survival') {
+    arr[1][2] = 'SURVIVAL MODE';
+    arr[0][3] = 'Hátralévő élet: ';
+    if (life === 3) {
+      arr[1][3] = '❤️ ❤️ ❤️';
+    } else if (life === 2) {
+      arr[1][3] = '❤️ ❤️';
+    } else if (life === 1) {
+      arr[1][3] = '❤️';
+    }
+  }
+  console.log(table(arr, {
+    columnDefault: {
+      paddingLeft: 0,
+      paddingRight: 0,
+      width: 22,
+      alignment: 'center'
+    },
+    singleLine: true
+  }));
 };
 
 module.exports = {
   writeFile,
-  scoreboard
+  scoreboard,
+  drawHead
 };

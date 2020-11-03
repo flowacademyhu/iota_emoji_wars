@@ -16,12 +16,16 @@ const player = {
   },
   ammo: [],
   score: 0,
-  name: ''
+  name: '',
+  lifeNum: 3
 };
+
+let time = 0;
 let enemy = [];
 
 let enemyNum = 1;
 let timeGenerateAndStepEnemy = 1000;
+const gameMode = 'survival';
 
 const main = () => {
   const stdin = process.stdin;
@@ -31,6 +35,11 @@ const main = () => {
   setInterval(() => {
     timeGenerateAndStepEnemy -= 100;
   }, 3000);
+
+  // idő számlálás
+  setInterval(() => {
+    time++;
+  }, 1000);
   // generate enemy
   setInterval(() => {
     enemyModule.stepEnemy(enemy, height);
@@ -48,9 +57,14 @@ const main = () => {
     player.ammo = newPlayer.arr;
     player.score += newPlayer.score;
     if (enemyModule.finalRow(enemy, height)) {
-      console.clear();
-      gameEnd.scoreboard(player.name, player.score);
-      process.exit(0);
+      player.lifeNum--;
+      enemy = [];
+      if (player.lifeNum === 0) {
+        console.clear();
+        gameEnd.scoreboard(player.name, player.score, gameMode);
+        // process.exit(0);
+        menu.writeMenu();
+      }
     }
   }, 100);
 
@@ -60,11 +74,10 @@ const main = () => {
   }, 3000);
 
   // térkép generálás
-  setInterval(() => {
+  const makeMap = setInterval(() => {
     console.clear();
     map.drawMap(height, width, player, enemy);
-    console.log('Pontszám:', player.score);
-    console.log('Játékos:', player.name);
+    gameEnd.drawHead(player.name, player.score, gameMode, time, player.lifeNum);
   }, 200);
 
   // játékos irányítása
@@ -85,7 +98,18 @@ const main = () => {
     }
 
     if (key === 'q') {
+      console.clear();
+      gameEnd.scoreboard(player.name, player.score, gameMode);
+      clearInterval(makeMap);
+      console.log('Új játék(u), vagy kilépes(e)?');
+      // process.exit(0);
+    }
+    if (key === 'e') {
       process.exit(0);
+    }
+    if (key === 'u') {
+      console.clear();
+      menu.menu();
     }
   });
 };
