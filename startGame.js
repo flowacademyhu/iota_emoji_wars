@@ -1,3 +1,12 @@
 const menu = require('./menu');
+const timeModeModule = require('./index');
+const survivalModeModule = require('./survival');
 
-menu.menu();
+const menuBackData = menu.startGameMenu();
+
+if (menuBackData.gameMode === 'time') {
+  timeModeModule.main();
+}
+if (menuBackData.gameMode === 'survival') {
+  console.log(survivalModeModule.main());
+}

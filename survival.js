@@ -62,8 +62,7 @@ const main = () => {
       if (player.lifeNum === 0) {
         console.clear();
         gameEnd.scoreboard(player.name, player.score, gameMode);
-        // process.exit(0);
-        menu.writeMenu();
+        process.exit(0);
       }
     }
   }, 100);
@@ -101,12 +100,19 @@ const main = () => {
       console.clear();
       gameEnd.scoreboard(player.name, player.score, gameMode);
       clearInterval(makeMap);
-      menu.menu();
-    }
-    if (key === 'p') {
-      console.clear();
-      menu.GameMenu();
-      clearInterval(makeMap);
+      process.stdin.removeAllListeners('data');
+      process.stdin.removeAllListeners('keypress');
+      process.stdin.setRawMode(false);
+      process.stdin.resume();
+      process.stdin.end();
+      return {
+        playerPos: player.pos,
+        playerScore: player.score,
+        playerAmmo: player.ammo,
+        playerLifeNum: player.lifeNum,
+        time: time,
+        enemy: enemy
+      };
     }
   });
 };

@@ -1,9 +1,5 @@
 const CFonts = require('cfonts');
 const readlineSync = require('readline-sync');
-const survival = require('./survival');
-const time = require('./index');
-
-let name;
 
 const emojiWars = () => {
   CFonts.say('EMOJI|WARS!', {
@@ -51,6 +47,7 @@ const choosedWordConfig = {
   transitionGradient: true, // define if this is a transition between colors directly
   env: 'node' // define the environment CFonts is being executed in
 };
+
 const writeMenu = (menuNamesArr) => {
   let cursor = 0;
   while (true) {
@@ -78,7 +75,7 @@ const writeMenu = (menuNamesArr) => {
   return cursor;
 };
 
-const GameMenu = () => {
+const startGameMenu = () => {
   const menuItems = [
     'NEW GAME',
     'HIGHSCORES',
@@ -88,7 +85,7 @@ const GameMenu = () => {
 
   const cursor = writeMenu(menuItems);
   if (cursor === 0) {
-    newGameMenu();
+    return newGameMenu();
   }
 };
 
@@ -97,18 +94,21 @@ const newGameMenu = () => {
     'TIME MODE',
     'SURVIVAL MODE'
   ];
-  name = readlineSync.question(CFonts.say('Mi a neved?', choosedWordConfig));
+  const name = readlineSync.question(CFonts.say('Mi a neved?', choosedWordConfig));
   const cursor = writeMenu(menuItems);
   if (cursor === 0) {
-    time.main();
-  }
-  if (cursor === 1) {
-    survival.main();
+    return {
+      name: name,
+      gameMode: 'time'
+    };
+  } else if (cursor === 1) {
+    return {
+      name: name,
+      gameMode: 'survival'
+    };
   }
 };
 
-GameMenu();
-
 module.exports = {
-  name
+  startGameMenu
 };
