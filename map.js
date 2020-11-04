@@ -14,7 +14,7 @@ const fillMap = (src) => {
     for (let column = 0; column < src[row].length; column++) {
       src[row][column] = chalk.green('  ');
       if (column === 0 || column === src[row].length - 1) {
-        src[row][column] = chalk.bgBlue('X');
+        src[row][column] = chalk.rgb(255, 131, row)('X');
       }
     }
   } return src;

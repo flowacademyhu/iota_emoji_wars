@@ -4,6 +4,7 @@
   "description": "legelső",
   "main": "index.js",
   "dependencies": {
+    "cfonts": "^2.8.6",
     "chalk": "^4.1.0",
     "readline-sync": "^1.4.10",
     "sound-play": "^1.0.5",

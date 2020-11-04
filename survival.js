@@ -101,15 +101,12 @@ const main = () => {
       console.clear();
       gameEnd.scoreboard(player.name, player.score, gameMode);
       clearInterval(makeMap);
-      console.log('Új játék(u), vagy kilépes(e)?');
-      // process.exit(0);
-    }
-    if (key === 'e') {
-      process.exit(0);
-    }
-    if (key === 'u') {
-      console.clear();
       menu.menu();
+    }
+    if (key === 'p') {
+      console.clear();
+      menu.GameMenu();
+      clearInterval(makeMap);
     }
   });
 };
@@ -117,4 +114,6 @@ const main = () => {
 // játékos nevének importálása
 player.name = menu.name;
 
-module.exports = main();
+module.exports = {
+  main
+};

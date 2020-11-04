@@ -82,6 +82,7 @@ const main = () => {
     if (key === 'q') {
       console.clear();
       gameEnd.scoreboard(player.name, player.score, gameMode);
+      menu.menu();
       process.exit(0);
     }
   });
@@ -89,4 +90,4 @@ const main = () => {
 
 player.name = menu.name;
 
-module.exports = main();
+module.exports = { main };
