@@ -177,6 +177,10 @@ const characterMenu = () => {
       playerChar: players[5]
     };
   }
+  if (cursor === 3) {
+    console.log('come back soon');
+    process.exit(0);
+  }
 };
 
 const enemyMenu = () => {
@@ -242,5 +246,6 @@ const newGameMenu = () => {
 };
 
 module.exports = {
-  startGameMenu
+  startGameMenu,
+  writeMenu
 };
