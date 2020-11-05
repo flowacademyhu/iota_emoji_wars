@@ -50,8 +50,8 @@ const choosedWordConfig = {
 
 const writeMenu = (menuNamesArr) => {
   let cursor = 0;
+  let key;
   while (true) {
-    const key = readlineSync.keyIn();
     console.clear();
     emojiWars();
     if (key === 'd') {
@@ -71,6 +71,7 @@ const writeMenu = (menuNamesArr) => {
         CFonts.say(menuNamesArr[i], letterConfig);
       }
     }
+    key = readlineSync.keyIn();
   }
   return cursor;
 };

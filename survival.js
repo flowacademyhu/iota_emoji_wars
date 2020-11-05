@@ -4,6 +4,7 @@ const enemyModule = require('./enemy');
 const ammoModule = require('./ammo');
 const gameEnd = require('./gameEnd');
 const menu = require('./menu');
+const other = require('./other');
 
 // Pálya méretei
 const height = 20;
@@ -100,19 +101,13 @@ const main = () => {
       console.clear();
       gameEnd.scoreboard(player.name, player.score, gameMode);
       clearInterval(makeMap);
-      process.stdin.removeAllListeners('data');
-      process.stdin.removeAllListeners('keypress');
+      stdin.removeAllListeners('data');
+      stdin.removeAllListeners('keypress');
       process.stdin.setRawMode(false);
       process.stdin.resume();
       process.stdin.end();
-      return {
-        playerPos: player.pos,
-        playerScore: player.score,
-        playerAmmo: player.ammo,
-        playerLifeNum: player.lifeNum,
-        time: time,
-        enemy: enemy
-      };
+      console.log('asd');
+      other.pauseMenu();
     }
   });
 };

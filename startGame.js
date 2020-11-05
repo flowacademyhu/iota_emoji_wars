@@ -3,6 +3,7 @@ const timeModeModule = require('./index');
 const survivalModeModule = require('./survival');
 
 const menuBackData = menu.startGameMenu();
+console.log('LEFUTOTT');
 
 if (menuBackData.gameMode === 'time') {
   timeModeModule.main();

@@ -7,7 +7,7 @@ const pauseMenu = () => {
     'OPTIONS',
     'QUIT'
   ];
-  const cursor = menu.writeMenu(menuItems);
+  const cursor = menu.startGameMenu(menuItems);
   if (cursor === 0) {
     console.log('newgame');
   }
