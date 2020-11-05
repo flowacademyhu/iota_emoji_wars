@@ -20,7 +20,7 @@ const fillMap = (src) => {
   } return src;
 };
 
-const drawMap = (height, width, player, enemy) => {
+const drawMap = (height, width, player, enemy, playerChar) => {
   console.clear();
   console.log('======');
   console.clear();
@@ -28,7 +28,7 @@ const drawMap = (height, width, player, enemy) => {
   for (let row = 0; row < gameMap.length; row++) {
     for (let column = 0; column < gameMap[row].length; column++) {
       if (player.pos.x === column && player.pos.y === row) {
-        gameMap[row][column] = '📤';
+        gameMap[row][column] = playerChar;
       }
       for (let i = 0; i < enemy.length; i++) {
         if (enemy[i].x === column && enemy[i].y === row) {
