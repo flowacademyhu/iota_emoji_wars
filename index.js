@@ -4,6 +4,7 @@ const enemyModule = require('./enemy');
 const ammoModule = require('./ammo');
 const gameEnd = require('./gameEnd');
 const menu = require('./menu');
+const { playerChar } = require('./player');
 // Pálya méretei
 const height = 20;
 const width = 10;
@@ -20,6 +21,7 @@ const player = {
   score: 0,
   name: ''
 };
+
 let enemy = [];
 
 let enemyNum = 1;
@@ -62,7 +64,7 @@ const main = () => {
   // térkép generálás
   setInterval(() => {
     console.clear();
-    map.drawMap(height, width, player, enemy);
+    map.drawMap(height, width, player, enemy, playerChar);
     gameEnd.drawHead(player.name, player.score, gameMode, playTIme, player.lifeNum);
   }, 200);
 
