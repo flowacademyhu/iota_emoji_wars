@@ -1,8 +1,15 @@
 const move = require('./move');
 
-const stepEnemy = (enemy, height) => {
+const stepEnemy = (enemy, height, width) => {
   for (let i = 0; i < enemy.length; i++) {
     move.moveDown(enemy[i], height);
+    if (enemy[i].z === 0) {
+      move.moveRight(enemy[i], width)
+      enemy[i].z = 1
+    } else {
+      move.moveLeft(enemy[i])
+      enemy[i].z = 0
+    }
   }
 };
 
@@ -11,9 +18,10 @@ const stepEnemy = (enemy, height) => {
 
 const generateEnemy = (width, enemy, n) => {
   for (let i = 0; i < n; i++) {
-    objectEnemy = { x: Math.floor(Math.random() * (width - 2) + 1), y: 0 }
+
+    objectEnemy = { x: Math.floor(Math.random() * (width - 2) + 1), y: 0, z:0}
 while (checkEnemyPos(enemy, objectEnemy)) {
-  objectEnemy = { x: Math.floor(Math.random() * (width - 2) + 1), y: 0 }
+  objectEnemy = { x: Math.floor(Math.random() * (width - 2) + 1), y: 0, z:0 }
 }
 enemy.push(objectEnemy);
   }
