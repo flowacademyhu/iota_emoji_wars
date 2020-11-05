@@ -133,7 +133,7 @@ const optionsMenu = () => {
   } else if (cursor === 1) {
     return enemyMenu();
   } else if (cursor === 2) {
-    return startGame;
+    return process.exit();
   }
 };
 
