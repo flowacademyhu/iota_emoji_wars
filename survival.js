@@ -4,7 +4,7 @@ const enemyModule = require('./enemy');
 const ammoModule = require('./ammo');
 const gameEnd = require('./gameEnd');
 const menu = require('./menu');
-const other = require('./other');
+const pauseMenu = require('./pauseMenu');
 
 // Pálya méretei
 const height = 20;
@@ -73,16 +73,8 @@ const main = () => {
     enemyNum++;
   }, 3000);
 
-  // térkép generálás
-  const makeMap = setInterval(() => {
-    console.clear();
-    map.drawMap(height, width, player, enemy);
-    gameEnd.drawHead(player.name, player.score, gameMode, time, player.lifeNum);
-  }, 200);
-
-  // játékos irányítása
-  stdin.setEncoding('utf8');
-  stdin.on('data', (key) => {
+  const button = (key) => {
+    console.log(key);
     if (key === 'd') {
       if (player.pos.x < width - 2) {
         move.moveRight(player.pos, width);
@@ -100,16 +92,55 @@ const main = () => {
     if (key === 'q') {
       console.clear();
       gameEnd.scoreboard(player.name, player.score, gameMode);
-      clearInterval(makeMap);
-      stdin.removeAllListeners('data');
-      stdin.removeAllListeners('keypress');
+      process.stdin.removeAllListeners('data');
+      process.stdin.removeAllListeners('keypress');
       process.stdin.setRawMode(false);
       process.stdin.resume();
       process.stdin.end();
-      console.log('asd');
-      other.pauseMenu();
+      pauseMenu.pauseMenu();
+      stdin.setRawMode(true);
+      stdin.resume();
+      stdin.setEncoding('utf8');
+      stdin.on('data', button);
     }
-  });
+  };
+
+  // térkép generálás
+  setInterval(() => {
+    console.clear();
+    map.drawMap(height, width, player, enemy);
+    gameEnd.drawHead(player.name, player.score, gameMode, time, player.lifeNum);
+  }, 200);
+
+  // játékos irányítása
+  stdin.setEncoding('utf8');
+  stdin.on('data', button);
+  // stdin.on('data', (key) => {
+  //   if (key === 'd') {
+  //     if (player.pos.x < width - 2) {
+  //       move.moveRight(player.pos, width);
+  //     }
+  //   }
+  //   if (key === 'a') {
+  //     if (player.pos.x > 1) {
+  //       move.moveLeft(player.pos);
+  //     }
+  //   }
+  //   if (key === 's') {
+  //     ammoModule.generatePlayerAmmo(player); // lövés az s gombbal
+  //   }
+
+  //   if (key === 'q') {
+  //     console.clear();
+  //     gameEnd.scoreboard(player.name, player.score, gameMode);
+  //     console.log(stdin.eventNames());
+  //     stdin.removeAllListeners('data');
+  //     console.log(stdin.eventNames());
+  //     stdin.removeAllListeners('end');
+  //     console.log(stdin.eventNames());
+  //     stdin.removeAllListeners('pause');
+  //   }
+  // });
 };
 
 // játékos nevének importálása
