@@ -13,11 +13,41 @@ const stepEnemy = (enemy, height, width) => {
   }
 };
 
+
+
+
 const generateEnemy = (width, enemy, n) => {
   for (let i = 0; i < n; i++) {
-    enemy.push({ x: Math.floor(Math.random() * (width - 3) + 1), y: 1 , z: 0 });
+
+    objectEnemy = { x: Math.floor(Math.random() * (width - 2) + 1), y: 0, z:0}
+while (checkEnemyPos(enemy, objectEnemy)) {
+  objectEnemy = { x: Math.floor(Math.random() * (width - 2) + 1), y: 0, z:0 }
+}
+enemy.push(objectEnemy);
   }
 };
+
+const checkEnemyPos = (enemy, objectEnemy) => {
+  for (i = 0; i < enemy.length; i++) {
+    if (objectEnemy.x === enemy[i].x && objectEnemy.y === enemy[i].y) {
+      return true
+    }
+  }
+  return false
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const finalRow = (enemy, height) => {
   for (let i = 0; i < enemy.length; i++) {

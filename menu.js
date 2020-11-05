@@ -88,6 +88,10 @@ const startGameMenu = () => {
   if (cursor === 0) {
     return newGameMenu();
   }
+  if (cursor === 3) {
+    console.log('come back soon');
+    process.exit(0);
+  }
 };
 
 const newGameMenu = () => {
@@ -111,5 +115,6 @@ const newGameMenu = () => {
 };
 
 module.exports = {
-  startGameMenu
+  startGameMenu,
+  writeMenu
 };
