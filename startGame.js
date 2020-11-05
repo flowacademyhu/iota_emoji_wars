@@ -9,5 +9,5 @@ if (menuBackData.gameMode === 'time') {
   timeModeModule.main();
 }
 if (menuBackData.gameMode === 'survival') {
-  console.log(survivalModeModule.main());
+  survivalModeModule.main();
 }
