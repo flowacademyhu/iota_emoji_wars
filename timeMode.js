@@ -4,27 +4,21 @@ const enemyModule = require('./enemy');
 const ammoModule = require('./ammo');
 const gameEnd = require('./gameEnd');
 const menu = require('./menu');
-const { playerChar } = require('./player');
+const playerModul = require('./player');
 // Pálya méretei
 const height = 20;
 const width = 10;
 // max játékidő
 let playTIme = 30;
-const gameMode = 'time';
-
-const player = {
-  pos: {
-    x: Math.floor(width / 2),
-    y: height - 1
-  },
-  ammo: [],
-  score: 0,
-  name: ''
-};
+const player = playerModul.player;
+const enemyChar = playerModul.enemyChar;
+const ammoChar = playerModul.ammoChar;
 
 let enemy = [];
 
 let enemyNum = 1;
+const timeGenerateAndStepEnemy = 1000;
+const gameMode = 'survival';
 
 const main = () => {
   const stdin = process.stdin;
@@ -36,7 +30,7 @@ const main = () => {
     enemyModule.generateEnemy(width, enemy, enemyNum);
     playTIme--;
     console.log(playTIme);
-  }, 1000);
+  }, timeGenerateAndStepEnemy);
   setInterval(() => {
     ammoModule.generatePlayerAmmo(player);
   }, 500);
@@ -61,15 +55,7 @@ const main = () => {
     enemyNum++;
   }, 3000);
 
-  // térkép generálás
-  setInterval(() => {
-    console.clear();
-    map.drawMap(height, width, player, enemy, playerChar);
-    gameEnd.drawHead(player.name, player.score, gameMode, playTIme, player.lifeNum);
-  }, 200);
-
-  stdin.setEncoding('utf8');
-  stdin.on('data', (key) => {
+  const button = (key) => {
     if (key === 'd') {
       if (player.pos.x < width - 2) {
         move.moveRight(player.pos, width);
@@ -83,11 +69,25 @@ const main = () => {
 
     if (key === 'q') {
       console.clear();
-      gameEnd.scoreboard(player.name, player.score, gameMode);
-      menu.menu();
-      process.exit(0);
+      process.stdin.removeAllListeners('data');
+      process.stdin.removeAllListeners('keypress');
+      process.stdin.setRawMode(false);
+      process.stdin.resume();
+      process.stdin.end();
+      menu.pauseMenu();
+      stdin.setRawMode(true);
+      stdin.resume();
+      stdin.setEncoding('utf8');
+      stdin.on('data', button);
     }
-  });
+  };
+  setInterval(() => {
+    console.clear();
+    map.drawMap(height, width, player, enemy, playerModul.player.playerChar, enemyChar.enemyC, ammoChar.ammoC);
+    gameEnd.drawHead(player.name, player.score, gameMode, playTIme, player.lifeNum);
+  }, 200);
+  stdin.setEncoding('utf8');
+  stdin.on('data', button);
 };
 
 player.name = menu.name;

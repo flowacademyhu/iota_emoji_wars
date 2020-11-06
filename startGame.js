@@ -1,6 +1,6 @@
 const menu = require('./menu');
-const timeModeModule = require('./index');
-const survivalModeModule = require('./survival');
+const timeModeModule = require('./timeMode');
+const survivalModeModule = require('./survivalMode');
 const playerModule = require('./player');
 
 // const menuBackData = menu.startGameMenu();
