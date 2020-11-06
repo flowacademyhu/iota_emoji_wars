@@ -13,11 +13,22 @@ const player = {
   lifeNum: 3,
   playerChar: '😀'
 };
-const gameMode = '';
+const gameMode = {
+  gameM: ''
+};
+
+const enemyChar = {
+  enemyC: '👾'
+};
+const ammoChar = {
+  ammoC: '🔺'
+};
 
 module.exports = {
   height,
   width,
   player,
-  gameMode
+  gameMode,
+  enemyChar,
+  ammoChar
 };

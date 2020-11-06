@@ -20,7 +20,7 @@ const fillMap = (src) => {
   } return src;
 };
 
-const drawMap = (height, width, player, enemy, playerChar) => {
+const drawMap = (height, width, player, enemy, playerChar, enemyChar, ammoChar) => {
   console.clear();
   console.log('======');
   console.clear();
@@ -32,12 +32,12 @@ const drawMap = (height, width, player, enemy, playerChar) => {
       }
       for (let i = 0; i < enemy.length; i++) {
         if (enemy[i].x === column && enemy[i].y === row) {
-          gameMap[row][column] = '👾';
+          gameMap[row][column] = enemyChar;
         }
       }
       for (let i = 0; i < player.ammo.length; i++) {
         if (player.ammo[i].x === column && player.ammo[i].y === row) {
-          gameMap[row][column] = '🔺';
+          gameMap[row][column] = ammoChar;
         }
       }
     }

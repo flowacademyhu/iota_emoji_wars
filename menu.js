@@ -1,6 +1,9 @@
 const CFonts = require('cfonts');
 const readlineSync = require('readline-sync');
 const playerModul = require('./player');
+const gameEndModule = require('./gameEnd');
+
+let pauseMenuFlag = false;
 
 const emojiWars = () => {
   CFonts.say('EMOJI|WARS!', {
@@ -60,10 +63,8 @@ const writeMenu = (menuNamesArr) => {
     }
     if (key === 's' && cursor < menuNamesArr.length - 1) {
       cursor++;
-      console.log(cursor);
     } else if (key === 'w' && cursor > 0) {
       cursor--;
-      console.log(cursor);
     }
     for (let i = 0; i < menuNamesArr.length; i++) {
       if (i === cursor) {
@@ -114,10 +115,34 @@ const startGameMenu = () => {
   const cursor = writeMenu(menuItems);
   if (cursor === 0) {
     return newGameMenu();
-  } else if (cursor === 2) {
+  } else if (cursor === 1) {
+    highScoresMenu();
+  }
+  if (cursor === 2) {
     optionsMenu();
   } else if (cursor === 3) {
     process.exit();
+  }
+};
+
+const highScoresMenu = () => {
+  const menuItems = [
+    'TIME MODE',
+    'SURVIVAL MODE',
+    'BACK'
+  ];
+
+  const cursor = writeMenu(menuItems);
+  if (cursor === 0) {
+    gameEndModule.scoreboard(playerModul.player.name, playerModul.player.score, 'time');
+  } else if (cursor === 1) {
+    gameEndModule.scoreboard(playerModul.player.name, playerModul.player.score, 'survival');
+  } else if (cursor === 2) {
+    if (pauseMenuFlag === true) {
+      pauseMenu();
+    } else {
+      startGameMenu();
+    }
   }
 };
 
@@ -125,6 +150,7 @@ const optionsMenu = () => {
   const menuItems = [
     'Character',
     'Enemy',
+    'Ammo',
     'Back'
   ];
   const cursor = writeMenu(menuItems);
@@ -133,16 +159,45 @@ const optionsMenu = () => {
   } else if (cursor === 1) {
     enemyMenu();
   } else if (cursor === 2) {
-    startGameMenu();
+    ammoMenu();
+  } else if (cursor === 3) {
+    if (pauseMenuFlag === true) {
+      pauseMenu();
+    } else {
+      startGameMenu();
+    }
+  }
+};
+
+const pauseMenu = (gameMode) => {
+  pauseMenuFlag = true;
+  const menuItems = [
+    'RESUME',
+    'HIGHSCORES',
+    'OPTIONS',
+    'QUIT'
+  ];
+  const cursor = writeMenu(menuItems);
+  if (cursor === 0) {
+    return 0;
+  }
+  if (cursor === 1) {
+    highScoresMenu();
+  }
+  if (cursor === 2) {
+    optionsMenu();
+  }
+  if (cursor === 3) {
+    process.exit(0);
   }
 };
 
 const characterMenu = () => {
   const players = [
     '😀',
-    '😂',
+    '👨‍⚕️',
     '🤩',
-    '😷',
+    '👨‍🚀',
     '😎',
     '😠'
   ];
@@ -171,45 +226,53 @@ const characterMenu = () => {
 const enemyMenu = () => {
   const enemys = [
     '👽',
+    '😷',
     '👾',
     '👻',
-    '👁️',
     '🧚',
-    '🩲'
+    '🩲',
+    '🚽'
   ];
   const cursor = writeMenuForOptions(enemys);
   if (cursor === 0) {
+    playerModul.enemyChar.enemyC = enemys[0];
     optionsMenu();
-    return {
-      enemyChar: enemys[0]
-    };
   } else if (cursor === 1) {
+    playerModul.enemyChar.enemyC = enemys[1];
     optionsMenu();
-    return {
-      enemyChar: enemys[1]
-    };
   } else if (cursor === 2) {
+    playerModul.enemyChar.enemyC = enemys[2];
     optionsMenu();
-    return {
-      enemyChar: enemys[2]
-    };
   } else if (cursor === 3) {
+    playerModul.enemyChar.enemyC = enemys[3];
     optionsMenu();
-    return {
-      enemyChar: enemys[3]
-    };
   } else if (cursor === 4) {
+    playerModul.enemyChar.enemyC = enemys[4];
     optionsMenu();
-    return {
-      enemyChar: enemys[4]
-    };
   } else if (cursor === 5) {
+    playerModul.enemyChar.enemyC = enemys[5];
     optionsMenu();
-    return {
-      enemyChar: enemys[5]
-    };
+  } else if (cursor === 6) {
+    playerModul.enemyChar.enemyC = enemys[6];
+    optionsMenu();
   }
 };
+
+const ammoMenu = () => {
+  const players = [
+    '🔺',
+    '💊'
+  ];
+  const cursor = writeMenuForOptions(players);
+  if (cursor === 0) {
+    playerModul.ammoChar.ammoC = players[0];
+    optionsMenu();
+  } else if (cursor === 1) {
+    playerModul.ammoChar.ammoC = players[1];
+    optionsMenu();
+  }
+};
+
 const newGameMenu = () => {
   const menuItems = [
     'TIME MODE',
@@ -219,15 +282,16 @@ const newGameMenu = () => {
   const cursor = writeMenu(menuItems);
   if (cursor === 0) {
     playerModul.player.name = name;
-    playerModul.gameMode = 'time';
+    playerModul.gameMode.gameM = 'time';
   } else if (cursor === 1) {
     playerModul.player.name = name;
-    playerModul.gameMode = 'survival';
+    playerModul.gameMode.gameM = 'survival';
   }
 };
 
 module.exports = {
   startGameMenu,
   writeMenu,
-  optionsMenu
+  optionsMenu,
+  pauseMenu
 };

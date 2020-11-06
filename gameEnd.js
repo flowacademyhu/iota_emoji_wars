@@ -76,6 +76,7 @@ const writeOutScoreboard = (dataTable, playerScore, playerName, gameMode) => {
 
 const scoreboard = (playerName, playerScore, gameMode) => {
   let jsonFile;
+  console.log(gameMode);
   if (gameMode === 'time') {
     jsonFile = timeScoreFile;
   } else if (gameMode === 'survival') {
@@ -87,9 +88,9 @@ const scoreboard = (playerName, playerScore, gameMode) => {
   datum += d.getFullYear();
   datum += d.getMonth();
   datum += d.getDate();
-  jsonFile.push({ name: playerName, score: playerScore, datum: datum });
+  exportData.push({ name: playerName, score: playerScore, datum: datum });
   writeFile(exportData, gameMode);
-  writeOutScoreboard(exportData, playerScore, playerName);
+  writeOutScoreboard(exportData, playerScore, playerName, gameMode);
 };
 
 const drawHead = (playerName, playerScore, gameMode, time, life) => {
