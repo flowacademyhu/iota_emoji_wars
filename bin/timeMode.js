@@ -47,7 +47,7 @@ const main = () => {
     if (enemyModule.finalRow(enemy, height) || playTIme === 0) {
       console.clear();
       gameEnd.scoreboard(player.name, player.score, gameMode);
-      process.exit(0);
+      console.clear();
     }
   }, 100);
 

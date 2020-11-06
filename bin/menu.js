@@ -341,5 +341,6 @@ module.exports = {
   startGameMenu,
   writeMenu,
   optionsMenu,
-  pauseMenu
+  pauseMenu,
+  writeScoreBoardMenu
 };
