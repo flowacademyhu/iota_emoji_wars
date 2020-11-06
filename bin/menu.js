@@ -147,19 +147,18 @@ const highScoresMenu = () => {
 };
 
 const writeScoreBoardMenu = (gameMode) => {
-  const cursor = 0;
   let key;
   while (true) {
     console.clear();
     emojiWars();
     if (key === 'd') {
+      highScoresMenu();
       break;
     }
     gameEndModule.scoreboard(playerModul.player.name, playerModul.player.score, gameMode);
     CFonts.say('BACK', choosedWordConfig);
     key = readlineSync.keyIn();
   }
-  return cursor;
 };
 // CFonts.say(menuNamesArr[i], choosedWordConfig);
 // gameEndModule.scoreboard(playerModul.player.name, playerModul.player.score, gameMode);

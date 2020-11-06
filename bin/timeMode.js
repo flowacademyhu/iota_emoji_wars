@@ -18,7 +18,7 @@ let enemy = [];
 
 let enemyNum = 1;
 const timeGenerateAndStepEnemy = 1000;
-const gameMode = 'survival';
+const gameMode = 'time';
 
 const main = () => {
   const stdin = process.stdin;

@@ -110,9 +110,9 @@ const drawHead = (playerName, playerScore, gameMode, time, life) => {
     arr[1][2] = 'SURVIVAL MODE';
     arr[0][3] = 'Hátralévő élet: ';
     if (life === 3) {
-      arr[1][3] = '❤️ ❤️ ❤️';
+      arr[1][3] = '❤️     ❤️     ❤️';
     } else if (life === 2) {
-      arr[1][3] = '❤️ ❤️';
+      arr[1][3] = '❤️  ❤️';
     } else if (life === 1) {
       arr[1][3] = '❤️';
     }
