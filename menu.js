@@ -134,9 +134,9 @@ const highScoresMenu = () => {
 
   const cursor = writeMenu(menuItems);
   if (cursor === 0) {
-    gameEndModule.scoreboard(playerModul.player.name, playerModul.player.score, 'time');
+    writeScoreBoardMenu('time');
   } else if (cursor === 1) {
-    gameEndModule.scoreboard(playerModul.player.name, playerModul.player.score, 'survival');
+    writeScoreBoardMenu('survival');
   } else if (cursor === 2) {
     if (pauseMenuFlag === true) {
       pauseMenu();
@@ -146,6 +146,23 @@ const highScoresMenu = () => {
   }
 };
 
+const writeScoreBoardMenu = (gameMode) => {
+  const cursor = 0;
+  let key;
+  while (true) {
+    console.clear();
+    emojiWars();
+    if (key === 'd') {
+      break;
+    }
+    gameEndModule.scoreboard(playerModul.player.name, playerModul.player.score, gameMode);
+    CFonts.say('BACK', choosedWordConfig);
+    key = readlineSync.keyIn();
+  }
+  return cursor;
+};
+// CFonts.say(menuNamesArr[i], choosedWordConfig);
+// gameEndModule.scoreboard(playerModul.player.name, playerModul.player.score, gameMode);
 const optionsMenu = () => {
   const menuItems = [
     'Character',

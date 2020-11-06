@@ -50,6 +50,7 @@ const writeOutScoreboard = (dataTable, playerScore, playerName, gameMode) => {
     },
     border: getBorderCharacters('honeywell')
   };
+
   const writeScore = [['A JÁTÉK VÉGE'], ['AZ ÖN EREDMÉNYE'], [playerName], [playerScore]];
   console.log(table(writeScore, {
     columnDefault: {
@@ -76,7 +77,6 @@ const writeOutScoreboard = (dataTable, playerScore, playerName, gameMode) => {
 
 const scoreboard = (playerName, playerScore, gameMode) => {
   let jsonFile;
-  console.log(gameMode);
   if (gameMode === 'time') {
     jsonFile = timeScoreFile;
   } else if (gameMode === 'survival') {
