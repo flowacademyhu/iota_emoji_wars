@@ -212,11 +212,12 @@ const pauseMenu = (gameMode) => {
 const characterMenu = () => {
   const players = [
     '😀',
-    '👨‍⚕️',
-    '🤩',
+    '😁',
+    '😇',
     '👨‍🚀',
-    '😎',
-    '😠'
+    '🤯',
+    '😠',
+    '😷'
   ];
   const cursor = writeMenuForOptions(players);
   if (cursor === 0) {
@@ -237,18 +238,23 @@ const characterMenu = () => {
   } else if (cursor === 5) {
     playerModul.player.playerChar = players[5];
     optionsMenu();
+  } else if (cursor === 6) {
+    playerModul.player.playerChar = players[6];
+    optionsMenu();
   }
 };
 
 const enemyMenu = () => {
   const enemys = [
     '👽',
-    '😷',
+    '💀',
     '👾',
     '👻',
     '🧚',
     '🩲',
-    '🚽'
+    '🚽',
+    '😈',
+    '🤧'
   ];
   const cursor = writeMenuForOptions(enemys);
   if (cursor === 0) {
@@ -272,12 +278,23 @@ const enemyMenu = () => {
   } else if (cursor === 6) {
     playerModul.enemyChar.enemyC = enemys[6];
     optionsMenu();
+  } else if (cursor === 7) {
+    playerModul.enemyChar.enemyC = enemys[7];
+    optionsMenu();
+  } else if (cursor === 8) {
+    playerModul.enemyChar.enemyC = enemys[8];
+    optionsMenu();
   }
 };
 
 const ammoMenu = () => {
   const players = [
     '🔺',
+    '🤖',
+    '💩',
+    '🩸',
+    '👌',
+    '✨',
     '💊'
   ];
   const cursor = writeMenuForOptions(players);
@@ -286,6 +303,21 @@ const ammoMenu = () => {
     optionsMenu();
   } else if (cursor === 1) {
     playerModul.ammoChar.ammoC = players[1];
+    optionsMenu();
+  } else if (cursor === 2) {
+    playerModul.ammoChar.ammoC = players[2];
+    optionsMenu();
+  } else if (cursor === 3) {
+    playerModul.ammoChar.ammoC = players[3];
+    optionsMenu();
+  } else if (cursor === 4) {
+    playerModul.ammoChar.ammoC = players[4];
+    optionsMenu();
+  } else if (cursor === 5) {
+    playerModul.ammoChar.ammoC = players[5];
+    optionsMenu();
+  } else if (cursor === 6) {
+    playerModul.ammoChar.ammoC = players[6];
     optionsMenu();
   }
 };

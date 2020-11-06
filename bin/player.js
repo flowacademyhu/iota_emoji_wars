@@ -11,17 +11,17 @@ const player = {
   score: 0,
   name: '',
   lifeNum: 3,
-  playerChar: '😀'
+  playerChar: '😷'
 };
 const gameMode = {
   gameM: ''
 };
 
 const enemyChar = {
-  enemyC: '👾'
+  enemyC: '🤢'
 };
 const ammoChar = {
-  ammoC: '🔺'
+  ammoC: '💊'
 };
 
 module.exports = {
