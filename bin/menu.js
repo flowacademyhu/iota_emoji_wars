@@ -52,7 +52,7 @@ const choosedWordConfig = {
   env: 'node' // define the environment CFonts is being executed in
 };
 
-const writeMenu = (menuNamesArr) => {
+const handleMenu = (menuItems, renderItem) => {
   let cursor = 0;
   let key;
   while (true) {
@@ -61,47 +61,42 @@ const writeMenu = (menuNamesArr) => {
     if (key === 'd') {
       break;
     }
-    if (key === 's' && cursor < menuNamesArr.length - 1) {
+    if (key === 's' && cursor < menuItems.length - 1) {
       cursor++;
     } else if (key === 'w' && cursor > 0) {
       cursor--;
     }
-    for (let i = 0; i < menuNamesArr.length; i++) {
-      if (i === cursor) {
-        CFonts.say(menuNamesArr[i], choosedWordConfig);
-      } else {
-        CFonts.say(menuNamesArr[i], letterConfig);
-      }
+    for (let i = 0; i < menuItems.length; i++) {
+      const isSelected = i === cursor;
+
+      renderItem(menuItems[i], isSelected);
     }
     key = readlineSync.keyIn();
   }
   return cursor;
 };
 
-const writeMenuForOptions = (menuNamesArr) => {
-  let cursor = 0;
-  let key;
-  while (true) {
-    console.clear();
-    emojiWars();
-    if (key === 'd') {
-      break;
+const writeMenu = (menuNamesArr) => {
+  const renderItem = (item, isSelected)=>{
+    if (isSelected) {
+      CFonts.say(item, choosedWordConfig);
+    } else {
+      CFonts.say(item, letterConfig);
     }
-    if (key === 's' && cursor < menuNamesArr.length - 1) {
-      cursor++;
-    } else if (key === 'w' && cursor > 0) {
-      cursor--;
-    }
-    for (let i = 0; i < menuNamesArr.length; i++) {
-      if (i === cursor) {
-        console.log(menuNamesArr[i], '  <');
-      } else {
-        console.log(menuNamesArr[i]);
-      }
-    }
-    key = readlineSync.keyIn();
   }
-  return cursor;
+  
+  return handleMenu(menuNamesArr, renderItem);
+};
+
+const writeMenuForOptions = (menuNamesArr) => {
+  const renderItem = (item, isSelected)=>{
+    if (isSelected) {
+      console.log(item, '  <');
+    } else {
+      console.log(item);
+    }
+  }
+  return handleMenu(menuNamesArr, renderItem);
 };
 
 const startGameMenu = () => {
